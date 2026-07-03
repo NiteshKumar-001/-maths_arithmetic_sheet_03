@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maths(Arithmetic) - Percentage sheet-03</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: transparent;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .quiz-header h1 {
+            color: #111827;
+            font-size: 28px;
+        }
+
+        /* Question Card Styling */
+        .question-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 16px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+
+        .exam-tag {
+            color: #d97706;
+            font-size: 14px;
+            font-weight: 700;
+            display: block;
+            margin-top: 8px;
+        }
+
+        /* 2x2 Grid for Options */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .option-btn {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 14px 16px;
+            font-size: 15px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+            color: #374151;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background-color: #f3f4f6;
+            border-color: #d1d5db;
+        }
+
+        .option-btn:disabled {
+            cursor: default;
+        }
+
+        /* Correct and Wrong States */
+        .option-btn.correct {
+            background-color: #dcfce7;
+            border-color: #86efac;
+            color: #166534;
+        }
+
+        .option-btn.wrong {
+            background-color: #fee2e2;
+            border-color: #fca5a5;
+            color: #991b1b;
+        }
+
+        .feedback-box {
+            margin-top: 16px;
+            padding: 12px 16px;
+            border-radius: 6px;
+            background-color: #eff6ff;
+            color: #1e3a8a;
+            font-size: 14px;
+            font-weight: 500;
+            display: none;
+        }
+
+        /* Submit Section Styling */
+        .submit-section {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 60px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        .submit-btn {
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 16px 32px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .submit-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        .final-score-container {
+            display: none;
+            background-color: #10b981;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <div class="quiz-header">
+        <h1>Maths(Arithmetic) - Percentage sheet-03</h1>
+    </div>
+
+    <div id="quiz-list"></div>
+
+    <div class="submit-section">
+        <button class="submit-btn" id="submit-btn" onclick="showFinalScore()">Submit Quiz</button>
+        <div class="final-score-container" id="final-score-container">
+            Your Final Score: <span id="final-score">0</span> / <span id="total-score">72</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    const quizData = [
+        { question: "1. Amelia saves 68% of her monthly income. If her monthly expenditure is Rs.25,720 then her monthly saving is:", exam: "", options: ["Rs. 54,655", "Rs. 35,720", "Rs. 64,655", "Rs. 80,375"], correct: 0 },
+        { question: "2. A man spends 72% of his salary and saves 5,740 per month. What is 10% of his annual salary (in Rs)?", exam: "", options: ["21600", "24600", "28400", "20500"], correct: 1 },
+        { question: "3. Radha spends 25% of her salary on food, 16% on house rent, 13% on entertainment and 9% on conveyance. If her savings at the end of a month are 24827Rs., then her salary per month (in Rs.) is:", exam: "", options: ["Rs.53800", "Rs.65900", "Rs.71300", "Rs.67100"], correct: 3 },
+        { question: "4. Ayush spends 25% of an amount of money on an insurance policy, 26% on food, 23% on children's education and 19% on recreation. He deposits the remaining amount of 26,600 in the bank. What is the total amount (in Rs) that he spends on food and recreation together?", exam: "(SSC CPO 2023)", options: ["1,95,000", "1,83,000", "1,62,000", "1,71,000"], correct: 3 },
+        { question: "5. Ramesh spends 40% of his monthly salary on food, 18% on house rent, 12% on enterainment, and 5% on conveyance, but due to a family function, he has to borrow 16000 rupees from a money lender to meet the expences of 20000 rupees. His monthly salary is:", exam: "", options: ["16500", "15000", "16000", "18000"], correct: 2 },
+        { question: "6. Rima spends 35% of her monthly income on food articles and 15% of the remaining on clothes. She saves 40% of the remaining income. If her monthly salary is Rs 27,500, how much does she save (in Rs) every month?", exam: "SSC CGL 2023 PRE", options: ["6077.5", "6170.5", "6277.5", "6370.5"], correct: 0 },
+        { question: "7. Sandeep spends 32% of his annual income on food, 20% of the remaining income on travelling, and 35% of the remaining income on clothes, and still saves Rs. 70,720 per year. What is the annual income (in Rs.) of Sandeep?", exam: "[SSC Selection Post (Phase-XII)]", options: ["1,44,000", "3,75,000", "2,00,000", "2,50,000"], correct: 2 },
+        { question: "8. A man spends 35% of his monthly income on food and four-thirteenths of the remaining income on transport. He incurs some other expenses, but also saves Rs. 6,300 per month, the latter being equal to 20% of the balance remaining just after spending on food and transport. What is his monthly income (in Rs.)?", exam: "SSC CHSL PRE 2024", options: ["67,500", "72,000", "70,000", "63,000"], correct: 2 },
+        { question: "9. Mr. Chauhan spent 20% of his income on food and 15% on children education, 40% of the remaining he spent on entertainment and transport together and 30% on medical. He is left with an amount of Rs. 8775 after all these expenditures. What is Mr. Chauhan's monthly income?", exam: "", options: ["45000", "42000", "40000", "36000"], correct: 0 },
+        { question: "10. Rajan spent 10% of his salary on rent. He spent 20% of the remaining part of the salary on transport. After which he spent 40% of the balance of the salary on food. Further, he spent 80% of the balance on various bills. He deposits Rs. 5000 in the bank and kept the remaining Rs. 1480 for his own petty expenditure. Find his monthly salary (in Rs.).", exam: "", options: ["75000", "80000", "82500", "64800"], correct: 2 },
+        { question: "11. A person spends 12.5% of his income on food, 18 3/4% of remaining part on travelling and 20% of the remaining part on education. Finally his total expenditure is Rs. 3450. Find his total income.", exam: "", options: ["5000", "8000", "10000", "12000"], correct: 1 },
+        { question: "12. Raju spends 10 percent and 20 percent of his income on transport and food respectively. He spends 30 percent of the remaining income on clothing. He saves rest of his income. If his saving is 26460, then what will be total expenditure on food and clothing together?", exam: "", options: ["22140", "23440", "24480", "26420"], correct: 0 },
+        { question: "13. A person gives 30% of his salary to his friend. 40% of the remaining salary he invests in a chit fund, out of remaining income he invests in an insurance scheme and PPF in the ratio 4:3. If the difference between total amount invested in chit fund, insurance scheme together and the amount he gave her friend is Rs.19800. Find the salary of person?", exam: "", options: ["80000", "90000", "100000", "110000"], correct: 1 },
+        { question: "14. A family income is Rs 35000 in a month. The family spends the income on various expenditures, viz, food, health, education, entertainment and rent. After incurring all the expenditures, 8% is saved every month. The expenditure on health is 50% more than that of food. While food is three times of the expenditure on entertainment, the expenditure on health is half of the expenditure on education. The expenditure on rent is one-third of the combined expenditure on food, health and education. How much expenditure (in Rs.) is incurred on education?", exam: "(SSC CGL 2023)", options: ["12600", "8400", "13200", "7700"], correct: 0 },
+        { question: "15. The monthly salary of a person was Rs. 50,000. He used to spend on three heads-personal and family expenses(E), taxes(T), philanthropy(P), and rest were his savings. E was 50% of the income, T was 20% of E and P was 15% of T. When his salary got raised by 40%, he maintained the percentage level of E, but T became 30% of E and P became 20% of T. By what percentage is the new savings more or less than the earlier savings?", exam: "", options: ["16.4% less", "8.2% more", "8.2% less", "16.4% more"], correct: 3 },
+        { question: "16. Three candidates contested an election and received 1234, 8448 and 20180 votes, respectively. What percentage of the total votes did the winning candidate get? (Rounded off to 2 decimal places)", exam: "(SSC MTS 2024)", options: ["55.26%", "48.25%", "58.25%", "67.58%"], correct: 3 },
+        { question: "17. There were two candidates in an election. One got 41% of the total votes and lost by 5580 votes. Find the total votes.", exam: "", options: ["28000", "31000", "34000", "37000"], correct: 1 },
+        { question: "18. A, B and C contested an election. All the votes polled were valid. A got 38% of the total votes. For every 45 votes polled, B got 18 votes. The winner got 5,760 more votes than the person who received the least number of votes. The total number of votes polled was:", exam: "(ICAR Assistant 2022)", options: ["37,200", "38,400", "36,000", "32,000"], correct: 3 },
+        { question: "19. Raju, Ravi and Ashok contested an election 5% votes polled were invalid. Raju got 30% of the total votes. Ravi got 32% of the total votes. The winner got 5136 more votes than the person who received the least number of votes. Find the total votes polled?", exam: "", options: ["171200", "64200", "171220", "172100"], correct: 0 },
+        { question: "20. Three candidates were participating in an election. The person at third place got 20% of the total votes while the difference between the votes of the winner and the first runner up was 20% of the total votes. If the difference between the votes of the first runner up and the second runner up was 37,000, how many votes did the winner receive?", exam: "(SSC CGL 2022)", options: ["1,80,000", "1,85,000", "1,75,000", "1,95,000"], correct: 1 },
+        { question: "21. Hari, Kamal and Lalit contested an election in which 6050 votes were polled and none of the votes were invalid. Kamal got 42% more votes than the total votes obtained by Hari and Lalit together. If Lalit obtained only 8% of the total polled votes, find the number of votes obtained by Hari.", exam: "(CGL MAINS 2023)", options: ["2016", "1556", "1912", "1668"], correct: 0 },
+        { question: "22. Three-seventh of voters promise to vote for A and the rest promise to vote for B. Of these, on the last day 12% of the voters went back on their promise to vote for A and 20% of voters went back on their promise to vote for B and A lost by 234 votes. The total number of voters was:", exam: "(ICAR Technician 2023)", options: ["13,650", "14,555", "15,550", "12,525"], correct: 0 },
+        { question: "23. In an election, candidate X got 70% of the overall valid votes. If 20% of the overall votes were declared invalid and the total numbers of votes is 640000, then find the number of valid votes polled in favour of the candidate.", exam: "", options: ["358400", "450000", "400000", "358000"], correct: 0 },
+        { question: "24. In an election between two candidates, 25% of the votes were invalid, and one candidate received 45% of the total valid votes. If the total number of votes cast was 1,600,000, what was the number of valid votes received by the winning candidate?", exam: "", options: ["7,00,000", "6,60,000", "6,50,000", "7,10,000"], correct: 1 },
+        { question: "25. In an election between two candidates, one got 54% of the total valid votes: 8% of the votes were invalid. If the total number of votes was 7500, then the winning candidate won by how many votes?", exam: "(ICAR Technician 2023)", options: ["566", "552", "574", "580"], correct: 1 },
+        { question: "26. In an election between two candidates, 75% of the eligible voters cast their votes and 6% of the votes cast were declared invalid. A candidate got 15228 votes, which were 90% of the total valid votes. Find the total number of eligible voters.", exam: "(RRB RPF SI 2024)", options: ["24850", "27000", "25600", "24000"], correct: 3 },
+        { question: "27. In a constituency, 90% of the total number of people on the electoral roll cast their votes during an election, 15% of the votes cast were declared invalid. Jeeta secured 60% of the valid votes. If jeeta secured 91,800 valid votes, what was the total number of people on the electoral roll?", exam: "SSC CGL 2023 PRE", options: ["2,16,000", "2,25,000", "1,80,000", "2,00,000"], correct: 3 },
+        { question: "28. In an election between two candidates, 15% of the voters did not cast their votes and 10% of the votes cast were declared invalid. The winning candidate got 8262 votes, which were 72% of the total valid votes. What was the total number of valid votes?", exam: "", options: ["12,800", "11,475", "11,255", "10,200"], correct: 1 },
+        { question: "29. In an election 2 candidates participated. 20% votes were declared invalid and the winner gets 70% of the valid votes and won by 9600 votes. Find total number of voters.", exam: "", options: ["30000", "24000", "48000", "56000"], correct: 0 },
+        { question: "30. In an election between two candidates 87% of the registered voters cast their vote and 5% of the votes polled were found invalid. The winning candidate got 52% of the valid votes and won the election by a margin of 1653 votes. How many voters were registered?", exam: "(RRB NTPC 12th LEVEL 2025)", options: ["50003", "50001", "50000", "49998"], correct: 2 },
+        { question: "31. In an election between two candidates, 10% of the voters did not cast their votes and 5% of the votes polled were found invalid. The successful candidate got 52.5% of the valid votes and won by a majority of 1710 votes. The number of voters enrolled on the voters list was:", exam: "SSC CHSL PRE 2024", options: ["36000", "40000", "42000", "48000"], correct: 1 },
+        { question: "32. In an election between two candidates, P received 42% of the valid votes and Q won by 45,360 votes. 20% people did not cast their vote. If 10% of the votes cast were found invalid, what is the total number of votes registered in the poll booth?", exam: "(SSC CGL 2024 Pre)", options: ["3,93,750", "3,59,000", "3,93,600", "3,53,790"], correct: 0 },
+        { question: "33. In an election between two candidates, 3% did not cast their votes and 5% votes polled were declared invalid. The winning candidate got 54% of the valid votes and won by a majority of 11058 votes. Find the number of voters who did not cast their votes.", exam: "", options: ["5050", "3750", "4500", "4125"], correct: 2 },
+        { question: "34. In an election between two candidates, y% of the voters did not vote. 10% of the votes cast were declared invalid, while all the valid votes were cast in favour of either of the two candidates. The candidate who got 59.375% of the valid votes cast was declared elected by 2484 votes. If the number of people eligible to vote in that election was 16,000, what is the value of y?", exam: "(SSC CGL 2024 Pre)", options: ["7.2", "8.4", "8", "7.5"], correct: 2 },
+        { question: "35. In an election two candidates participated,15% voters did not vote, 3900 votes declared invalid and the winners gets 57% of the valid votes and wins by 1120 votes. Find the number of voters in voting list?", exam: "", options: ["14000", "15000", "16000", "12000"], correct: 0 },
+        { question: "36. In the election 8% of the votes did not cast their voters. Two candidates contested the election in which the winning candidate got 48% of the total votes and won election by 1100 votes. Find the total number of voters in the election, given that all the votes cast were valid?", exam: "", options: ["25500", "26500", "27500", "28500"], correct: 2 },
+        { question: "37. In an election between two candidates, 20% of the registered voters did not cast their vote and 40 votes were declared invalid. The winner received 42% of the registered votes and was declared the winner by 112 votes. What was the number of registered voters?", exam: "", options: ["1200", "1500", "1800", "1600"], correct: 2 },
+        { question: "38. In an election between two candidates, 80% of the voters cast their vote out of which 53 votes were declared invalid. The winner got 48% of all the voters in the list and he won by 1013 votes. The number of voters on the list was:", exam: "(RRB RPF SI 2024)", options: ["6000", "5600", "5000", "6500"], correct: 0 },
+        { question: "39. In an election 22% voters couldn't cast their votes. Out of total Cast votes 15500 became invalid. Winner Secured 51% of total votes in voting list and won the election by 63500 votes find the total number of voters?", exam: "", options: ["200000", "180000", "210000", "225000"], correct: 0 },
+        { question: "40. In an election, 12% of the voters in the voter list did not cast their votes, whereas 84 voters cast their ballot papers blank. There were only two candidates: Ramagya and Shravan. The winner, Ramagya, was supported by 54% of all the voters in the list. He got 1456 more votes than his rival, Shravan. Find the total number of voters in the list.", exam: "SSC CPO 2024", options: ["5690", "6670", "7860", "6860"], correct: 3 },
+        { question: "41. In an election, 2% persons enrolled in the voter list did not participate and 500 votes were invalid. Two candidates A and B fought the election, and A defeated B by 200 votes. If 43% of the persons enrolled in the voter list casted their votes in favor of A, then what is the number of the total casted votes?", exam: "SSC CGL 2023 PRE", options: ["2450", "2800", "3000", "3250"], correct: 0 },
+        { question: "42. A total of 7,50,000 voters participated in an election, A candidtate recieved 3,82,500 votes which was 60% of the total valid votes. What was the percentage of invalid votes in the election?", exam: "", options: ["15%", "18%", "20%", "12%"], correct: 0 },
+        { question: "43. Three candidates P, Q and R participated in an election. P got 35% more votes than Q, and R got 15% more votes than Q. P overtook R by 2,412 votes. If 90% voters voted and no invalid or illegal votes were cast, then what was the number of voters in the voting list?", exam: "(SSC CGL 2022)", options: ["46,900", "42,800", "42,210", "48,500"], correct: 0 },
+        { question: "44. In an election, there are three contestants A, B and C. A got 35% of the total votes and B got 54% of the remaining votes. C got 5382 votes. By how many votes did the winner win from his close contestant?", exam: "(ICAR Technician 2022)", options: ["21", "23", "17", "18"], correct: 3 },
+        { question: "45. In an election, there were four candidates and 80% of the registered voters cast their vote. One of the candidates received 30% of the casted votes while the other three candidates received remaining casted votes in the proportion 1:2:3. If the winner of the election received 2512 votes more than the candidate with the second highest votes, then the number of registered voters was?", exam: "", options: ["40192", "60280", "50240", "62800"], correct: 3 },
+        { question: "46. Out of 80,000 registered voters, 25% did not vote in the first round. Of those who voted, 12% votes were invalid. Due to a tie in the first round, only the two leading candidates proceeded to a second round of voting, where only 80% of valid voters from the first round turned up to vote again. In the second round, one candidate received 30% of the votes, and the other received the rest. By how many votes did the winner win in the second round?", exam: "(IB ACIO GRADE-22025)", options: ["16986", "16896", "17896", "17986"], correct: 1 },
+        { question: "47. In an election between A and B, every fifth vote polled was marked as invalid by the machine. In the remaining votes, A wins the election with a margin of 2500 votes or 10% of the total votes polled, over B. If 90% of the invalid votes would have been in favour of B, then which of the following would have been the result of the election?", exam: "SSC CPO Pre 2024", options: ["B would have won by 8%", "B would have won by 3%", "A would have won by 3%", "A would have won by 8%"], correct: 0 },
+        { question: "48. A school conducted a scholarship test where 60% of the students passed in English, 70% passed in Math, and 45% passed in both. What is the percentage of students who passed in at least one subject?", exam: "(SSC CHSL 2025 PRE)", options: ["90%", "75%", "85%", "80%"], correct: 2 },
+        { question: "49. In an examination, 52% candidates failed in English and 42% failed in Mathematics. If 17% failed in both the subjects, then what percent passed in both the subjects?", exam: "", options: ["77", "58", "48", "23"], correct: 3 },
+        { question: "50. In a group of students, 70% can speak English and 65% can speak Hindi. If 27% of the students can speak none of the two languages. then what % of the group can speak both the languages?", exam: "", options: ["38%", "62%", "28%", "23%"], correct: 1 },
+        { question: "51. In a village, 60% of families have a cow, 30% of families have a buffalo and each of the 15% of families has both a cow and a buffalo. In all, there are 960 families in the village. How many families do not have a cow or a buffalo?", exam: "(UP CONSTABLE RE-EXAM 2024)", options: ["280", "240", "260", "200"], correct: 1 },
+        { question: "52. In a certain village, 22% of the families own agricultural land, 18% own a mobile phone and 1600 families own both agricultural land and a mobile phone. If 68% of the families, neither own agriculture land nor a mobile phone, then the total number of families living in the village is?", exam: "", options: ["20000", "10000", "15000", "16000"], correct: 0 },
+        { question: "53. In an examination 73% of the candidates passed in Quantitative aptitude test, 70% passed in General awareness and 64% passed in both. If 6300 failed in both subjects then the total number of examinees was?", exam: "", options: ["60000", "50000", "30000", "25000"], correct: 2 },
+        { question: "54. In a competitive examination, 80% candidates passed in in section A, 77% in section B while 18% failed in both the sections. If 1425 students passed in both the sections, find the total number of candidates who appeared in the competitive examination.", exam: "UP S.I. 13/11/2021 (Evening)", options: ["1700", "2000", "1900", "1800"], correct: 2 },
+        { question: "55. A vendor sells 60% of apples he had and throws away 15% of the remainder. Next day he sells 50% of the remainder and throws away the rest. What % of his apples does the vendor throw?", exam: "", options: ["17", "21", "23", "29"], correct: 2 },
+        { question: "56. The number of boys and girls who appeared in an exam were in the ratio of 9:7. The number of boys & girls passing exam were in the ratio 3:2. If 60% of girls passed in exam, find the percentage of boys passed in exam.", exam: "", options: ["64%", "72%", "70%", "80%"], correct: 2 },
+        { question: "57. A's salary is 40% more than B's. If B's salary increases by 20% and A's increases by x%, then A's new salary becomes 25% more than B's new salary. What is the value of x?", exam: "(SSC CGL 2025 PRE)", options: ["2.5%", "7.14%", "10.63%", "15.6%"], correct: 1 },
+        { question: "58. In a class, 60% of the students are girls and the rest are boys. There are 30 more girls than boys. If 68% of the students, including 30 boys, pass an examination, the percentage of the girls who do not pass is.", exam: "", options: ["15", "18", "20", "25"], correct: 2 },
+        { question: "59. In a constituency, 45% of the total number of voters are males and the rest are females. If 60% of the males are illiterate and 60% of the females are literate, then by what per cent is the number of illiterate females more than that of literate males? (Rounded off to 2 decimal places)", exam: "(SSC CGL 2024 Pre)", options: ["19.11%", "27.23%", "30.24%", "22.22%"], correct: 3 },
+        { question: "60. In a city 60% of the population are males and the rest are females. If the ratio of married males to non married males is 5:7, and the ratio married females to non-married females is 2:3, then what percentage of the total population is married?", exam: "", options: ["41%", "59%", "51%", "49%"], correct: 0 },
+        { question: "61. If the numerator of a fraction is increased by 12% and its denominator is reduced by 8%, it gives a new fraction 16/17. What is the original fraction?", exam: "(SSC SELECTION POST XI 2023)", options: ["92/119", "23/28", "119/92", "28/23"], correct: 2 },
+        { question: "62. In may, John bought the same amount of rice and the same amount of wheat as he had bought in April, but spent Rs 150 more due to price increase of rice and wheat by 20% and 12%, respectively. If John had spent Rs 450 on rice in April, then how much did he spend on wheat in May?", exam: "", options: ["560", "640", "570", "490"], correct: 0 },
+        { question: "63. Every month, a man consumes 20 kg of rice and 8 kg of wheat. The price of rice is 20% of the price of wheat, resulting in a total expenditure of 300 per month for rice and wheat combined. If the price of wheat is increased by 20%, what percentage reduction in rice consumption is needed to maintain the same expenditure of 300? (Given that price of rice and consumption of wheat is constant.", exam: "(SSC CGL 2024 PRE)", options: ["40%", "38%", "24%", "22%"], correct: 0 },
+        { question: "64. A, B, and C donate 8%, 7% and 9% of their salaries, respectively to a charitable trust. The salaries of A and B are same and the difference between donations is 259 rupees. The total donation of A and B is 1185 rupees more than that of C. The total donations of A and C is what percentage of the total salaries of A, B, and C?", exam: "(SSC CGL PRE 2019)", options: ["6.2%", "5.8%", "6.4%", "7.1%"], correct: 1 },
+        { question: "65. A person who has a certain amount with him goes to market. He can buy 50 oranges or 40 mangoes with it. He retains 10% of the amount for taxi fares and buys 24 mangoes. Of the remaining amount, he purchased oranges. Find the number of oranges that he bought.", exam: "", options: ["12", "18", "15", "20"], correct: 2 },
+        { question: "66. In a maternity centre, 5% of all the child birth cases result in twins. What is the approximate percentage of twins out of total children born?", exam: "", options: ["5%", "7.6%", "9.5%", "10.4%"], correct: 2 },
+        { question: "67. An archer can hit a target with a certain percentage of accuracy. If the weather becomes stormy, his accuracy drops by 20 percent. If he can hit the target 196 times out of 350 shots in stormy weather, what is his hit rate out of 250 shots under normal conditions?", exam: "UPSI-12 Dec. 2017 (Shift - 2)", options: ["300", "175", "200", "250"], correct: 1 },
+        { question: "68. In a district, 10% of the total citizens have been convicted of a crime. But, 20% of the total criminals escape even after committing the crime. What percentage of the total number of citizens are criminals?", exam: "", options: ["12.5%", "20%", "22.50%", "25%"], correct: 0 },
+        { question: "69. Every day a mango seller sells half of his stock, 10% of the stock overnight gets spoiled. If 1983 mangoes rotted over 3 nights then how many did he start with on the first day?", exam: "", options: ["28000", "24000", "40000", "32000"], correct: 1 },
+        { question: "70. The population of town B is 56.25% more than that of town A. For the next two years, the population of A increases by x% per year and that of B decreases by the same percentage per year. After 2 years, if the population of A and B become equal, then the value of x is.", exam: "", options: ["8.33", "11.11", "9.09", "10"], correct: 1 },
+        { question: "71. Some students (only boys and girls) from different schools appeared for an Olympiad exam. 20% of the boys and 15% of the girls failed the exam. The number of boys who passed the exam was 70 more than that of the girls who passed the exam. A total of 90 students failed. Find the number of students that appeared for the exam.", exam: "", options: ["420", "400", "500", "350"], correct: 2 },
+        { question: "72. In a manufacturing unit, it was noted that the price of raw material has increased by 25% and the labour cost has gone up from 30% of the cost of raw material to 38% of the cost of the raw material. What percentage of the consumption of raw material be reduced to keep the cost the same as that before the increase?", exam: "", options: ["20.7%", "30.2%", "24.6%", "25.5%"], correct: 2 }
+    ];
+
+    let currentScore = 0;
+    const totalQuestions = quizData.length;
+    const labels = ["A. ", "B. ", "C. ", "D. "];
+
+    const quizListElement = document.getElementById("quiz-list");
+    document.getElementById("total-score").innerText = totalQuestions;
+
+    // Render all questions to the DOM
+    quizData.forEach((data, qIndex) => {
+        const card = document.createElement("div");
+        card.className = "question-card";
+
+        const questionText = document.createElement("h3");
+        questionText.className = "question-text";
+        
+        // Append exam tag if it exists
+        if (data.exam) {
+            questionText.innerHTML = `${data.question} <span class="exam-tag">${data.exam}</span>`;
+        } else {
+            questionText.innerText = data.question;
+        }
+        
+        card.appendChild(questionText);
+
+        const optionsGrid = document.createElement("div");
+        optionsGrid.className = "options-grid";
+
+        const feedbackBox = document.createElement("div");
+        feedbackBox.className = "feedback-box";
+
+        data.options.forEach((optionText, oIndex) => {
+            const btn = document.createElement("button");
+            btn.className = "option-btn";
+            btn.innerText = labels[oIndex] + optionText;
+
+            btn.onclick = () => handleAnswer(btn, oIndex, data.correct, optionsGrid, feedbackBox, data);
+            
+            optionsGrid.appendChild(btn);
+        });
+
+        card.appendChild(optionsGrid);
+        card.appendChild(feedbackBox);
+        quizListElement.appendChild(card);
+    });
+
+    // Function to handle answer selection
+    function handleAnswer(selectedBtn, selectedIndex, correctIndex, optionsGrid, feedbackBox, data) {
+        const allButtons = optionsGrid.querySelectorAll(".option-btn");
+
+        allButtons.forEach(btn => btn.disabled = true);
+
+        if (selectedIndex === correctIndex) {
+            selectedBtn.classList.add("correct");
+            currentScore++;
+            feedbackBox.innerText = `Correct!`;
+        } else {
+            selectedBtn.classList.add("wrong");
+            allButtons[correctIndex].classList.add("correct");
+            feedbackBox.innerText = `Incorrect. The correct answer is ${labels[correctIndex]} ${data.options[correctIndex]}`;
+            feedbackBox.style.color = "#991b1b";
+            feedbackBox.style.backgroundColor = "#fee2e2";
+        }
+
+        feedbackBox.style.display = "block";
+    }
+
+    // Function to show the final score when Submit is clicked
+    function showFinalScore() {
+        document.getElementById("submit-btn").style.display = "none";
+        document.getElementById("final-score").innerText = currentScore;
+        document.getElementById("final-score-container").style.display = "block";
+        
+        // Scroll down smoothly to show the final score
+        document.getElementById("final-score-container").scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+</script>
+
+</body>
+</html>
